@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:networking_listview/utils/Constants.dart';
 
 import '../bg_image.dart';
 import '../drawer.dart';
@@ -13,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   TextEditingController _nameController = TextEditingController();
   var myText = "change me";
   var url = "https://jsonplaceholder.typicode.com/photos";
@@ -24,20 +24,16 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-
     getData();
-
   }
 
-  getData() async{
+  getData() async {
     var response = await http.get(Uri.parse(url));
     data = jsonDecode(response.body);
-    
+
     print("jpn==${data}");
 
-    setState(() {
-      
-    });
+    setState(() {});
 
     print("---== response==${response.body}");
   }
@@ -46,41 +42,43 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Welcome in my App"),
+        title: Text("Welcome in my App"),
+        actions: [IconButton(onPressed: () {
+          Constants.prefs.setBool("loggedIn", false);
+          Navigator.pushReplacementNamed(context, "/login");
+        }, icon: Icon(Icons.logout))],
         backgroundColor: Colors.purple,
       ),
-      body:  Padding(
-        padding:  EdgeInsets.all(8.0),
-        child: data!=null?
-         ListView.builder(
-             itemBuilder: (context,index){
-               return Padding(
-                 padding: const EdgeInsets.all(8.0),
-                 child: ListTile(
-                   title: Text(data[index]["title"]),
-                   subtitle: Text("Id = ${data[index]["id"]}"),
-                   leading: Image.network(data[index]["url"]),
-                 ),
-               );
-             }
-         )
+      body: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: data != null
+            ? ListView.builder(itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    title: Text(data[index]["title"]),
+                    subtitle: Text("Id = ${data[index]["id"]}"),
+                    leading: Image.network(data[index]["url"]),
+                  ),
+                );
+              })
             : Center(
-            child:
-            CircularProgressIndicator(),),
+                child: CircularProgressIndicator(),
+              ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       drawer: const MyDrawer(),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        myText =_nameController.text;
-        setState(() {
-
-        });
-        ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-          content: Text("Sending = $myText"),
-        ));
-      },
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          myText = _nameController.text;
+          setState(() {});
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Sending = $myText"),
+          ));
+        },
         child: Icon(Icons.refresh),
         backgroundColor: Colors.pink,
       ),
-    ); }
+    );
+  }
 }

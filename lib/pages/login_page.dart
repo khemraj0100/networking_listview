@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:networking_listview/bg_image.dart';
 import 'package:networking_listview/pages/home_page.dart';
+import 'package:networking_listview/utils/Constants.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -56,9 +57,12 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(height: 20),
                             ElevatedButton(
                                 onPressed: () {
+                                  Constants.prefs.setBool("loggedIn",true);
                                   // Navigator.push(context, MaterialPageRoute(builder:(context) => HomePage()));
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                                  // Navigator.pushReplacementNamed(context, "/home");
                                   Navigator.pushNamed(context, "/home");
+
                                 }, child: Text("Sign in"))
                           ],
                         ),
