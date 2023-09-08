@@ -14,6 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var _current_index = 0;
+  var tabs =[
+    Center(child: Text("Home")),
+    Center(child: Text("Search")),
+    Center(child: Text("settings")),
+    Center(child: Text("Search")),
+  ];
+
   TextEditingController _nameController = TextEditingController();
   var myText = "change me";
   var url = "https://jsonplaceholder.typicode.com/photos";
@@ -43,28 +51,62 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Welcome in my App"),
-        actions: [IconButton(onPressed: () {
-          Constants.prefs.setBool("loggedIn", false);
-          Navigator.pushReplacementNamed(context, "/login");
-        }, icon: Icon(Icons.logout))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Constants.prefs.setBool("loggedIn", false);
+                Navigator.pushReplacementNamed(context, "/login");
+              },
+              icon: Icon(Icons.logout))
+        ],
         backgroundColor: Colors.purple,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: data != null
-            ? ListView.builder(itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    title: Text(data[index]["title"]),
-                    subtitle: Text("Id = ${data[index]["id"]}"),
-                    leading: Image.network(data[index]["url"]),
-                  ),
-                );
-              })
-            : Center(
-                child: CircularProgressIndicator(),
-              ),
+      body:
+      tabs[_current_index]
+      // Padding(
+      //   padding: EdgeInsets.all(8.0),
+      //   child: data != null
+      //       ? ListView.builder(itemBuilder: (context, index) {
+      //           return Padding(
+      //             padding: const EdgeInsets.all(8.0),
+      //             child: ListTile(
+      //               title: Text(data[index]["title"]),
+      //               subtitle: Text("Id = ${data[index]["id"]}"),
+      //               leading: Image.network(data[index]["url"]),
+      //             ),
+      //           );
+      //         })
+      //       : Center(
+      //           child: CircularProgressIndicator(),
+      //         ),
+      // )
+      ,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _current_index,
+        // iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              backgroundColor: Colors.blue,
+              label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              backgroundColor: Colors.green,
+              label: 'Search'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              backgroundColor: Colors.pink,
+              label: 'settings'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.camera),
+              backgroundColor: Colors.red,
+              label: 'Search'),
+        ],
+        onTap: (index) {
+          setState(() {
+            _current_index = index;
+          });
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       drawer: const MyDrawer(),

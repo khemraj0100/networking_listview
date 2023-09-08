@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:networking_listview/bg_image.dart';
 import 'package:networking_listview/pages/home_page.dart';
 import 'package:networking_listview/utils/Constants.dart';
+import 'package:flutter/services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,11 +16,12 @@ class _LoginPageState extends State<LoginPage> {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login Page"),
+        title: const Text("Login Page", textAlign: TextAlign.end),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -62,6 +64,13 @@ class _LoginPageState extends State<LoginPage> {
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
                                   // Navigator.pushReplacementNamed(context, "/home");
                                   Navigator.pushNamed(context, "/home");
+
+                                }, child: Text("Login in")),
+                            SizedBox(height: 20),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Constants.prefs.setBool("signUp",true);
+                                  Navigator.pushNamed(context, "/signUp");
 
                                 }, child: Text("Sign in"))
                           ],
