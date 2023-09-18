@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:networking_listview/pages/home_page.dart';
 import 'package:networking_listview/pages/login_page.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
 
-    Timer(Duration(seconds: 3),(){
+    Timer(Duration(seconds: 10),(){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
     });
   }
@@ -26,15 +27,23 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Container(
-        color: Colors.blue,
-        child: Center(
-          child: Text("Welcome to you",style: TextStyle(
-            fontSize: 34,
-              fontWeight: FontWeight.w700,
-            color: Colors.white
-          ),),
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Lottie.asset('animation/1.json',height: 100,repeat: true,fit: BoxFit.fill)
+        ],
+
+        // children: [
+        //   Lottie.asset('animation/1.json',height: 100,repeat: true,fit: BoxFit.fill)
+        // ],
+        // color: Colors.blue,
+        // child: Center(
+        //   child: Text("Welcome to you",style: TextStyle(
+        //     fontSize: 34,
+        //       fontWeight: FontWeight.w700,
+        //     color: Colors.white
+        //   ),),
+        // ),
       ),
 
 
