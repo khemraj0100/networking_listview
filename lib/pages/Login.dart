@@ -73,8 +73,8 @@ class _LoginState extends State<Login> {
                           });
                         },
                         child: Icon(passToggle
-                            ? Icons.visibility
-                            : Icons.visibility_off),
+                            ? Icons.visibility_off
+                            : Icons.visibility),
                       )
                   ),
                   validator: (value){
@@ -127,7 +127,9 @@ class _LoginState extends State<Login> {
                       "Already have an account?",
                       style: TextStyle(fontSize: 16),
                     ),
-                    TextButton(onPressed: () {}, child: Text(
+                    TextButton(onPressed: () {
+                      Navigator.pushNamed(context, "/sign_up");
+                    }, child: Text(
                       "Sign Up",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),))
                   ],
                 )

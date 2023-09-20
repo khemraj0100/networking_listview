@@ -5,6 +5,9 @@ import 'package:lottie/lottie.dart';
 import 'package:networking_listview/pages/Login.dart';
 import 'package:networking_listview/pages/home_page.dart';
 import 'package:networking_listview/pages/login_page.dart';
+import 'package:networking_listview/pages/opt.dart';
+
+import '../pages/ImagePickerDemo.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(Duration(seconds: 1), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Login()));
+          context, MaterialPageRoute(builder: (context) => ImagePickerDemo()));
     });
   }
 

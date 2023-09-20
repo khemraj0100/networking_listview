@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               onPressed: () {
                 Constants.prefs.setBool("loggedIn", false);
-                Navigator.pushReplacementNamed(context, "/login");
+                Navigator.pushReplacementNamed(context, "/login_real");
               },
               icon: const Icon(Icons.logout))
         ],
