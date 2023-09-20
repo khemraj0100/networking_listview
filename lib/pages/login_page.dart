@@ -16,12 +16,12 @@ class _LoginPageState extends State<LoginPage> {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login Page", textAlign: TextAlign.end),
+        title: Text("Login Page", textAlign: TextAlign.center),
+        centerTitle: true,
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -59,20 +59,20 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(height: 20),
                             ElevatedButton(
                                 onPressed: () {
-                                  Constants.prefs.setBool("loggedIn",true);
+                                  Constants.prefs.setBool("loggedIn", true);
                                   // Navigator.push(context, MaterialPageRoute(builder:(context) => HomePage()));
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
                                   // Navigator.pushReplacementNamed(context, "/home");
                                   Navigator.pushNamed(context, "/home");
-
-                                }, child: Text("Login in")),
+                                },
+                                child: Text("Login in")),
                             SizedBox(height: 20),
                             ElevatedButton(
                                 onPressed: () {
-                                  Constants.prefs.setBool("signUp",true);
+                                  Constants.prefs.setBool("signUp", true);
                                   Navigator.pushNamed(context, "/signUp");
-
-                                }, child: Text("Sign in"))
+                                },
+                                child: Text("Sign in"))
                           ],
                         ),
                       ))

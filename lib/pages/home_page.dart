@@ -16,10 +16,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var _current_index = 0;
   var tabs =[
-    Center(child: Text("Home")),
-    Center(child: Text("Search")),
-    Center(child: Text("settings")),
-    Center(child: Text("Search")),
+    const Center(child: Text("Home")),
+    const Center(child: Text("Search")),
+    const Center(child: Text("settings")),
+    const Center(child: Text("Search")),
   ];
 
   TextEditingController _nameController = TextEditingController();
@@ -41,7 +41,9 @@ class _HomePageState extends State<HomePage> {
 
     print("jpn==${data}");
 
-    setState(() {});
+    setState(() {
+
+    });
 
     print("---== response==${response.body}");
   }
@@ -50,36 +52,37 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome in my App"),
+        title: const Text("Welcome in my App"),
         actions: [
           IconButton(
               onPressed: () {
                 Constants.prefs.setBool("loggedIn", false);
                 Navigator.pushReplacementNamed(context, "/login");
               },
-              icon: Icon(Icons.logout))
+              icon: const Icon(Icons.logout))
         ],
         backgroundColor: Colors.purple,
       ),
       body:
-      tabs[_current_index]
-      // Padding(
-      //   padding: EdgeInsets.all(8.0),
-      //   child: data != null
-      //       ? ListView.builder(itemBuilder: (context, index) {
-      //           return Padding(
-      //             padding: const EdgeInsets.all(8.0),
-      //             child: ListTile(
-      //               title: Text(data[index]["title"]),
-      //               subtitle: Text("Id = ${data[index]["id"]}"),
-      //               leading: Image.network(data[index]["url"]),
-      //             ),
-      //           );
-      //         })
-      //       : Center(
-      //           child: CircularProgressIndicator(),
-      //         ),
-      // )
+
+      // tabs[_current_index]
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: data != null
+            ? ListView.builder(itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    title: Text(data[index]["title"]),
+                    subtitle: Text("Id = ${data[index]["id"]}"),
+                    leading: Image.network(data[index]["url"]),
+                  ),
+                );
+              })
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
+      )
       ,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _current_index,
@@ -118,8 +121,8 @@ class _HomePageState extends State<HomePage> {
             content: Text("Sending = $myText"),
           ));
         },
-        child: Icon(Icons.refresh),
         backgroundColor: Colors.pink,
+        child: const Icon(Icons.refresh),
       ),
     );
   }

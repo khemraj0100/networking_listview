@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:networking_listview/pages/Login.dart';
 import 'package:networking_listview/pages/home_page.dart';
 import 'package:networking_listview/pages/login_page.dart';
 
@@ -13,24 +14,28 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    Timer(Duration(seconds: 10),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Timer(Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Lottie.asset('animation/1.json',height: 100,repeat: true,fit: BoxFit.fill)
+          Lottie.asset('animation/1.json',
+              height: (MediaQuery.of(context).size.height),
+              width: (MediaQuery.of(context).size.height),
+              repeat: true,
+              fit: BoxFit.fill)
         ],
 
         // children: [
@@ -45,8 +50,6 @@ class _SplashScreenState extends State<SplashScreen> {
         //   ),),
         // ),
       ),
-
-
     );
   }
 }

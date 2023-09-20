@@ -29,6 +29,13 @@ class MyDrawer extends StatelessWidget {
             title: Text("data two",style: TextStyle(color: Colors.black),
             ),
             trailing: Icon(Icons.send),
+          ),
+          ListTile(
+            leading: Icon(Icons.search_off),
+            subtitle: Text("sub title"),
+            title: Text("data three",style: TextStyle(color: Colors.black),
+            ),
+            trailing: Icon(Icons.send),
           )
 
         ],),
