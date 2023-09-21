@@ -22,7 +22,10 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  final List<TextEditingController> _otpControllers = List.generate(4, (index) => TextEditingController());
+  final List<TextEditingController> _otpControllers =
+  List.generate(4, (index) => TextEditingController());
+
+  bool _isValidOTP = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +34,14 @@ class _OtpFormState extends State<OtpForm> {
         const SizedBox(height: 200),
         const Text(
           'Enter the 4-digit OTP sent to your phone number',
-          style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(4, (index) => SizedBox(
+          children: List.generate(
+            4,
+                (index) => SizedBox(
               width: 50,
               child: TextFormField(
                 controller: _otpControllers[index],
@@ -48,44 +53,64 @@ class _OtpFormState extends State<OtpForm> {
                 maxLength: 1,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Please enter a digit"),
-                    ));
                     return 'Please enter a digit';
                   }
                   if (value.length != 1) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Invalid digit"),
-                    ));
-                    // return 'Please enter a digit';
-
                     return 'Invalid digit';
                   }
                   return null;
                 },
                 onChanged: (value) {
-                  if (value.isNotEmpty && index < 4) {
+                  if (value.isNotEmpty && index < 3) {
                     FocusScope.of(context).nextFocus();
+                  } else if (value.isEmpty && index > 0) {
+                    FocusScope.of(context).previousFocus();
                   }
-                  else{
-                      FocusScope.of(context).previousFocus();
-                  }
-                }
-
+                },
               ),
             ),
           ),
         ),
         const SizedBox(height: 30),
-
         InkWell(
           onTap: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => const Login()));
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("OTP verify Successfully"),
-              ));
-            },
+            bool allFieldsFilled = true;
+            for (var controller in _otpControllers) {
+              if (controller.text.isEmpty) {
+                allFieldsFilled = false;
+                break;
+              }
+            }
+
+            if (allFieldsFilled) {
+              // Validate OTP here (e.g., compare with the expected OTP)
+              String enteredOTP = _otpControllers.map((controller) => controller.text).join();
+              if (enteredOTP == "1234") {
+                // Replace with your OTP validation logic
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Login()),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("OTP verified successfully"),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Invalid OTP"),
+                  ),
+                );
+              }
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Please enter all 4 digits"),
+                ),
+              );
+            }
+          },
           child: Container(
             height: 50,
             decoration: BoxDecoration(
@@ -96,14 +121,14 @@ class _OtpFormState extends State<OtpForm> {
               child: Text(
                 "Verify OTP",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
         )
-
       ],
     );
   }
