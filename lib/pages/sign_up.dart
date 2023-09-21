@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:networking_listview/pages/ImagePickerDemo.dart';
 
 class SignupScreen extends StatelessWidget {
   @override
@@ -40,7 +41,9 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 200,
             width: 200,
             fit: BoxFit.fill,
+
           ),
+
           const SizedBox(height: 30),
           TextFormField(
             controller: usernameController,
@@ -152,6 +155,32 @@ class _SignUpFormState extends State<SignUpForm> {
               child: const Center(
                 child: Text(
                   "Sign Up",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+        SizedBox(height: 20,)
+        ,
+          InkWell(
+            onTap: () {
+
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => ImagePickerDemo()));
+
+            },
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: const Center(
+                child: Text(
+                  "Image Picker",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,

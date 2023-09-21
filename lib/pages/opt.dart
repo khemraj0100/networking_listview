@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:networking_listview/pages/Login.dart';
 
 class OtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OTP Verification'),
+        title: const Text('OTP Verification'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,32 +22,27 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  final List<TextEditingController> _otpControllers = List.generate(
-    4,
-        (index) => TextEditingController(),
-  );
+  final List<TextEditingController> _otpControllers = List.generate(4, (index) => TextEditingController());
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 200),
+        const SizedBox(height: 200),
         const Text(
           'Enter the 4-digit OTP sent to your phone number',
           style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(
-            4,
-                (index) => SizedBox(
+          children: List.generate(4, (index) => SizedBox(
               width: 50,
               child: TextFormField(
                 controller: _otpControllers[index],
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
                 maxLength: 1,
@@ -68,20 +64,25 @@ class _OtpFormState extends State<OtpForm> {
                   return null;
                 },
                 onChanged: (value) {
-                  if (value.isNotEmpty && index < 3) {
+                  if (value.isNotEmpty && index < 4) {
                     FocusScope.of(context).nextFocus();
                   }
-                },
+                  else{
+                      FocusScope.of(context).previousFocus();
+                  }
+                }
+
               ),
             ),
           ),
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
 
         InkWell(
           onTap: () {
-              Navigator.pushNamed(context, "/login_real");
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => const Login()));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("OTP verify Successfully"),
               ));
             },
